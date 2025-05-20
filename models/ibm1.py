@@ -27,7 +27,7 @@ class IBMModel1(Model):
     
     # Class constants
     TRAINING_DATA_PERCENTAGE = 0.8
-    SENTENCE_LIMIT = 100_000
+    SENTENCE_LIMIT = 150_000
     NUM_ITERATIONS = 10
     EPSILON = 1e-12
     CHECKPOINT_FILE = "ibm_model1_checkpoint.npz"
@@ -180,8 +180,8 @@ class IBMModel1(Model):
             start_time = time.time()
             print("Updating count statistics...")
         
-        english_vocab_size = len(self.english_vocab)
-        italian_vocab_size = len(self.italian_vocab)
+        english_vocab_size = len(self.english_vocab) + 1
+        italian_vocab_size = len(self.italian_vocab) + 1
         
         # Initialize count matrices
         count = [[0.0] * italian_vocab_size for _ in range(english_vocab_size)]
@@ -573,7 +573,7 @@ def main():
     
     # Train the model with timing information
     # Set show_times=True to see detailed timing information
-    model.train(show_times=True)
+    model.train()
     
     # Prepare test data (use remaining data for testing)
     training_size = int(model.TRAINING_DATA_PERCENTAGE * len(model.dataset))
