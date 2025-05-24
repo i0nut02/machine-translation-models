@@ -577,7 +577,7 @@ def main():
     
     # Prepare test data (use remaining data for testing)
     training_size = int(model.TRAINING_DATA_PERCENTAGE * len(model.dataset))
-    test_data = model.dataset[training_size:training_size + 5]  # Use 500 sentences for testing
+    test_data = model.dataset[training_size:]  # Use 500 sentences for testing
     
     if test_data:
         print(f"\nEvaluating model on {len(test_data)} test sentences...")
@@ -588,29 +588,6 @@ def main():
         print(f"Main BLEU-4 Score: {evaluation_results['corpus_bleu_4']:.4f}")
     else:
         print("\nNo test data available for evaluation.")
-    
-    # Demonstrate individual word translation
-    print("\nExample word translations:")
-    test_words = ["hello", "the", "house", "good", "time"]
-    for word in test_words:
-        if word in model.english_mapping:
-            best_translations = model.get_best_translations(word, top_k=3)
-            print(f"{word} -> {best_translations}")
-    
-    # Demonstrate sentence translation
-    print("\nExample sentence translations:")
-    test_sentences = [
-        "the house is good",
-        "hello my friend",
-        "this is a test"
-    ]
-    
-    for sentence in test_sentences:
-        translation = model.translate(sentence)
-        print(f"EN: {sentence}")
-        print(f"IT: {translation}")
-        print("-" * 40)
-
 
 if __name__ == "__main__":
     main()
